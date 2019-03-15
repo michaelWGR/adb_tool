@@ -12,6 +12,8 @@ PLATFORM = platform.system()
 
 dataPath = os.path.join(rootPath, 'data')       #data文件夹的路径
 if not os.path.isdir(dataPath):
+    if os.path.isfile(dataPath):
+        os.remove(dataPath)
     os.makedirs(dataPath)
 
 def getAdbPath():
@@ -46,6 +48,10 @@ def connectDevice():            #判断是否可连接上设备
 
 def pull_rm(phone_id, save_phone_path):       #把文件从手机拉出来，然后删除手机的文件
     try:
+        if not os.path.isdir(dataPath):
+            if os.path.isfile(dataPath):
+                os.remove(dataPath)
+            os.makedirs(dataPath)
         print 'Pulling and removing...'
         cmd_pull = '{} -s {} pull {} {}'.format(ADBPATH, phone_id, save_phone_path, dataPath).split()
         stderro = subprocess.Popen(cmd_pull, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[1]

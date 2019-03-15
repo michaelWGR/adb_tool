@@ -20,10 +20,11 @@ def pack():
     cmd = 'pyinstaller -D -y -i {} {}'.format(iconPath, viewScriptPath).split()
     sub = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, erro = sub.communicate()
-    print out
+    # print out
     print erro
 
     if 'completed successfully' in erro:
+        print 'y'
         try:
             # 打包产生的文件夹和文件路径
             distPath = os.path.join(sourcePath, 'dist')
@@ -51,33 +52,41 @@ def pack():
                 os.symlink(newScriptNameMac, softlinkMac)
                 
             elif 'Windows' in system:
+                print 'b'
 
                 # 复制windows的bin文件夹到根目录
                 if os.path.isdir(binWinPath):
                     shutil.rmtree(binWinPath)
                 shutil.copytree(viewPath, binWinPath, True)
 
+                print 'c'
                 # 重命名windows可执行的bin文件
                 oldScriptNameWin = os.path.join(binWinPath, 'record_and_cap_view.exe')
                 newScriptNameWin = os.path.join(binWinPath, 'tool_win.exe')
                 os.rename(oldScriptNameWin, newScriptNameWin)
 
+                print 'd'
                 # 创建软连接到根文件夹
                 # softlinkWin = os.path.join(rootPath, 'tool_win.exe')
                 # if os.path.isfile(softlinkWin):
                 #     os.remove(softlinkWin)
                 # os.symlink(newScriptNameWin, softlinkWin)         # 暂时只能手动创建链接
 
-            # 删除打包产生的文件夹和文件路径
-            shutil.rmtree(distPath)
-            shutil.rmtree(buildPath)
-            os.remove(specPath)
-
+            
 
         except:
             print 'Package failure'
     else:
-        print 'Package failure'
+        print 'Package failure in cmd'
+
+    # 删除打包产生的文件夹和文件路径
+    if os.path.isdir(distPath):
+        shutil.rmtree(distPath)
+    if os.path.isdir(buildPath):
+        shutil.rmtree(buildPath)
+    if os.path.isfile(specPath):
+        os.remove(specPath)
+
 
 
 
