@@ -8,7 +8,7 @@
 
   - 使用前请打开手机的usb调试，并用数据线连接到电脑
 
-  - 直接点击文件里的tool_mac软链接即可运行，或点击bin_mac文件夹里的tool_mac二进制文件也可运行
+  - 直接点击bin_mac文件夹里的tool_mac二进制文件运行
   - 本工具支持自主打包，需要安装pyinstaller，运行source文件夹里的pack.py脚本即可
     - 安装pyinstaller
       - 需要有python 2.7环境
@@ -19,7 +19,7 @@
 - windows系统用户
 
   - 使用前请打开手机的usb调试，并用数据线连接到电脑
-  - 直接点击文件里的tool_win.exe链接即可运行，或点击bin_win文件夹里的tool_win.exe文件也可运行
+  - 直接点击bin_win文件夹里的tool_win.exe文件运行
   - 本工具支持自主打包，需要安装pyinstaller，运行source文件夹里的pack.py脚本即可。完成后，在bin_win文件夹里可以看到tool_win.exe文件，点击运行即可。也可以自己创建软链接到其他地方，更方便运行
     - 安装pyinstaller
       - 需要有python 2.7环境
