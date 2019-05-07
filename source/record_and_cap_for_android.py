@@ -5,7 +5,6 @@ from configurations import *
 import os
 import platform
 
-
 __author__ = 'Michael'
 
 PLATFORM = platform.system()
@@ -53,17 +52,22 @@ def pull_rm(phone_id, save_phone_path):       #把文件从手机拉出来，然
                 os.remove(dataPath)
             os.makedirs(dataPath)
         print 'Pulling and removing...'
-        cmd_pull = '{} -s {} pull {} {}'.format(ADBPATH, phone_id, save_phone_path, dataPath).split()
-        stderro = subprocess.Popen(cmd_pull, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[1]
-        print stderro
-        if stderro != '':
+        # cmd_pull = '{} -s {} pull {} "{}"'.format(ADBPATH, phone_id, save_phone_path, dataPath).split()
+        cmd_pull = [ADBPATH, '-s', phone_id, 'pull', save_phone_path, dataPath]         # 预防windows有空格的文件名
+        print cmd_pull
+        res_pull = subprocess.Popen(cmd_pull, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+        print res_pull[0]
+        print res_pull[1]
+        if res_pull[1] != '':
             return
         time.sleep(1)
 
         cmd_rm = '{} -s {} shell rm {}'.format(ADBPATH, phone_id, save_phone_path).split()
-        stderro_rm = subprocess.Popen(cmd_rm, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[1]
-        print stderro_rm
-        if stderro_rm != '':
+        print cmd_rm
+        res_rm = subprocess.Popen(cmd_rm, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+        print res_rm[0]
+        print res_rm[1]
+        if res_rm[1] != '':
             return
 
     except:
@@ -103,13 +107,15 @@ def screencap(phone_id, filename):        #截取图片
         print filename
         save_phone_path = '/sdcard/'+filename       #为了适配windos和macos系统
         cmd_cap = '{} -s {} shell screencap -p {}'.format(ADBPATH, phone_id, save_phone_path).split()
-        erro_cap = subprocess.Popen(cmd_cap, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[1]
-        print erro_cap
+        res_cap = subprocess.Popen(cmd_cap, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+        print res_cap[0]
+        print res_cap[1]
 
-        if erro_cap != '':
+        if res_cap[1] != '':
             return cap_status_map[3]
 
         pull_rm(phone_id, save_phone_path)
+
         return ''
     except:
         return cap_status_map[3]
@@ -324,5 +330,6 @@ if __name__ == '__main__':
     # main()
     # Record.begin_record('RTJ0217727000288', 'test.mp4')
     # get_current_time()
-    screencap('1e2fdd4f', '')
+    # print getAdbPath()
+    screencap('a3c2ca1d', '12.jpg')
     
