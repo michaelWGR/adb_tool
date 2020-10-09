@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-from Tkinter import *
-from record_and_cap_for_android import *
-from configurations import *
-import ttk
+from tkinter import *
+from source.record_and_cap_for_android import *
+from source.configurations import *
+from tkinter import ttk
 import threading
 import time
 
 __author__ = 'Michael'
+
 
 def mainWindow():
     root = Tk()
@@ -42,6 +43,7 @@ def mainWindow():
     RecordView(recordframe).recordArea()
 
     root.mainloop()
+
 
 class TopView(Frame):
     # phone_name = ''
@@ -79,6 +81,7 @@ class TopView(Frame):
         phone_id = PhoneType.get_phone_id(current_phone_name)
         return phone_id
 
+
 class CapView(Frame):
     def __init__(self,frame):
         Frame.__init__(self, frame)
@@ -95,7 +98,7 @@ class CapView(Frame):
         name_frame.grid(row=1, column=0, sticky='W')
 
         self.p_name = StringVar()
-        self.p_name.set(u'默认以时间命名')
+        self.p_name.set('默认以时间命名')
         self.p_name_enter = Entry(name_frame, width=12, textvariable=self.p_name)       # 图片名称输入框
 
         self.p_name_enter.configure(fg='#A9A9A9', font=('微软雅黑', 10, 'bold'))
@@ -125,9 +128,9 @@ class CapView(Frame):
             # 格式化截图名称
             if name == '':
                 full_name = ''+self.suffix_box.get()
-                self.p_name.set(u'默认以时间命名')
+                self.p_name.set('默认以时间命名')
                 self.p_name_enter.configure(fg='#A9A9A9')
-            elif name == u'默认以时间命名':
+            elif name == '默认以时间命名':
                 full_name = ''+self.suffix_box.get()
             else:
                 full_name = name+self.suffix_box.get()      # 完整的截图名称
@@ -144,8 +147,8 @@ class CapView(Frame):
         elif self.p_name.get() == '':
             self.p_name_enter.configure(fg='#000000')
 
-class RecordView(object):
 
+class RecordView(object):
     def __init__(self, frame):
         self.frame = frame
         self.error_text = StringVar()
@@ -211,7 +214,7 @@ class RecordView(object):
         else:
             full_v_name = name+self.v_suffix_box.get()
 
-        print Record.record_status
+        print(Record.record_status)
         global threadBegin
         phone_id = TopView.get_current_id()         # 获取选择手机的id
 
@@ -251,6 +254,7 @@ class RecordView(object):
         else:
             self.error_text.set(Record.return_text)
             Record.set_status(0)
+
 
 if __name__ == '__main__':
     mainWindow()

@@ -63,12 +63,12 @@ binMacPath = os.path.join(rootPath, 'bin_mac')
 binWinPath = os.path.join(rootPath, 'bin_win')
 
 if __name__ == '__main__':
-    print scriptPath
-    print rootPath
-    print dataPath
-    print resourcesPath
-    print sourcePath
-    print environmentPath
-    print binMacPath
-    print binWinPath
-    print system
+    print(scriptPath)
+    print(rootPath)
+    print(dataPath)
+    print(resourcesPath)
+    print(sourcePath)
+    print(environmentPath)
+    print(binMacPath)
+    print(binWinPath)
+    print(system)

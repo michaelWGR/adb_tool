@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import subprocess
-from configurations import *
+from source.configurations import *
 import os
 import shutil
 
@@ -21,10 +21,10 @@ def pack():
     sub = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, erro = sub.communicate()
     # print out
-    print erro
+    print(erro.decode())
 
-    if 'completed successfully' in erro:
-        print 'y'
+    if 'completed successfully' in erro.decode():
+        print('y')
         try:
             # 打包产生的文件夹和文件路径
             distPath = os.path.join(sourcePath, 'dist')
@@ -52,20 +52,20 @@ def pack():
                 os.symlink(newScriptNameMac, softlinkMac)
                 
             elif 'Windows' in system:
-                print 'b'
+                print('b')
 
                 # 复制windows的bin文件夹到根目录
                 if os.path.isdir(binWinPath):
                     shutil.rmtree(binWinPath)
                 shutil.copytree(viewPath, binWinPath, True)
 
-                print 'c'
+                print('c')
                 # 重命名windows可执行的bin文件
                 oldScriptNameWin = os.path.join(binWinPath, 'record_and_cap_view.exe')
                 newScriptNameWin = os.path.join(binWinPath, 'tool_win.exe')
                 os.rename(oldScriptNameWin, newScriptNameWin)
 
-                print 'd'
+                print('d')
                 # 创建软连接到根文件夹
                 # softlinkWin = os.path.join(rootPath, 'tool_win.exe')
                 # if os.path.isfile(softlinkWin):
@@ -75,9 +75,9 @@ def pack():
             
 
         except:
-            print 'Package failure'
+            print('Package failure')
     else:
-        print 'Package failure in cmd'
+        print('Package failure in cmd')
 
     # 删除打包产生的文件夹和文件路径
     if os.path.isdir(distPath):
