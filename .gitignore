@@ -1,5 +1,5 @@
 *.pyc
 __pycache__
-*/.idea/
+.idea
 .DS_Store
 data/
